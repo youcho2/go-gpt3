@@ -53,7 +53,7 @@ func (c *Client) CreateImage(ctx context.Context, request ImageRequest) (respons
 	}
 
 	urlSuffix := "/images/generations"
-	req, err := http.NewRequestWithContext(ctx, http.MethodPost, c.fullURL(urlSuffix), bytes.NewBuffer(reqBytes))
+	req, err := http.NewRequest(http.MethodPost, c.fullURL(urlSuffix), bytes.NewBuffer(reqBytes))
 	if err != nil {
 		return
 	}
@@ -110,7 +110,7 @@ func (c *Client) CreateEditImage(ctx context.Context, request ImageEditRequest) 
 	}
 	writer.Close()
 	urlSuffix := "/images/edits"
-	req, err := http.NewRequestWithContext(ctx, http.MethodPost, c.fullURL(urlSuffix), body)
+	req, err := http.NewRequest(http.MethodPost, c.fullURL(urlSuffix), body)
 	if err != nil {
 		return
 	}

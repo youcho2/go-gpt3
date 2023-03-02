@@ -39,7 +39,7 @@ func (c *Client) Edits(ctx context.Context, request EditsRequest) (response Edit
 		return
 	}
 
-	req, err := http.NewRequestWithContext(ctx, http.MethodPost, c.fullURL("/edits"), bytes.NewBuffer(reqBytes))
+	req, err := http.NewRequest(http.MethodPost, c.fullURL("/edits"), bytes.NewBuffer(reqBytes))
 	if err != nil {
 		return
 	}

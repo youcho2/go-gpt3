@@ -1,7 +1,6 @@
 package gogpt
 
 import (
-	"context"
 	"fmt"
 	"net/http"
 )
@@ -21,8 +20,8 @@ type EnginesList struct {
 
 // ListEngines Lists the currently available engines, and provides basic
 // information about each option such as the owner and availability.
-func (c *Client) ListEngines(ctx context.Context) (engines EnginesList, err error) {
-	req, err := http.NewRequestWithContext(ctx, http.MethodGet, c.fullURL("/engines"), nil)
+func (c *Client) ListEngines() (engines EnginesList, err error) {
+	req, err := http.NewRequest(http.MethodGet, c.fullURL("/engines"), nil)
 	if err != nil {
 		return
 	}
@@ -34,11 +33,10 @@ func (c *Client) ListEngines(ctx context.Context) (engines EnginesList, err erro
 // GetEngine Retrieves an engine instance, providing basic information about
 // the engine such as the owner and availability.
 func (c *Client) GetEngine(
-	ctx context.Context,
 	engineID string,
 ) (engine Engine, err error) {
 	urlSuffix := fmt.Sprintf("/engines/%s", engineID)
-	req, err := http.NewRequestWithContext(ctx, http.MethodGet, c.fullURL(urlSuffix), nil)
+	req, err := http.NewRequest(http.MethodGet, c.fullURL(urlSuffix), nil)
 	if err != nil {
 		return
 	}
