@@ -7,7 +7,7 @@
 
 Installation:
 ```
-go get github.com/sashabaranov/go-gpt3
+go get github.com/youcho2/go-gpt3
 ```
 
 
@@ -19,7 +19,7 @@ package main
 import (
 	"context"
 	"fmt"
-	gogpt "github.com/sashabaranov/go-gpt3"
+	gogpt "github.com/youcho2/go-gpt3"
 )
 
 func main() {
@@ -49,7 +49,7 @@ import (
 	"context"
 	"fmt"
 	"io"
-	gogpt "github.com/sashabaranov/go-gpt3"
+	gogpt "github.com/youcho2/go-gpt3"
 )
 
 func main() {
