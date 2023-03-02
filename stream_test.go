@@ -1,11 +1,10 @@
 package gogpt_test
 
 import (
-	. "github.com/sashabaranov/go-gpt3"
-	"github.com/sashabaranov/go-gpt3/internal/test"
+	. "github.com/youcho2/go-gpt3"
+	"github.com/youcho2/go-gpt3/internal/test"
 
 	"context"
-	"errors"
 	"io"
 	"net/http"
 	"net/http/httptest"
@@ -90,7 +89,7 @@ func TestCreateCompletionStream(t *testing.T) {
 	}
 
 	_, streamErr := stream.Recv()
-	if !errors.Is(streamErr, io.EOF) {
+	if streamErr != io.EOF {
 		t.Errorf("stream.Recv() did not return EOF in the end: %v", streamErr)
 	}
 }

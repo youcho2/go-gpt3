@@ -1,7 +1,7 @@
 package gogpt_test
 
 import (
-	. "github.com/sashabaranov/go-gpt3"
+	. "github.com/youcho2/go-gpt3"
 
 	"context"
 	"errors"
@@ -19,12 +19,12 @@ func TestAPI(t *testing.T) {
 	var err error
 	c := NewClient(apiToken)
 	ctx := context.Background()
-	_, err = c.ListEngines(ctx)
+	_, err = c.ListEngines()
 	if err != nil {
 		t.Fatalf("ListEngines error: %v", err)
 	}
 
-	_, err = c.GetEngine(ctx, "davinci")
+	_, err = c.GetEngine("davinci")
 	if err != nil {
 		t.Fatalf("GetEngine error: %v", err)
 	}
@@ -85,7 +85,7 @@ func TestAPI(t *testing.T) {
 	for {
 		_, err = stream.Recv()
 		if err != nil {
-			if errors.Is(err, io.EOF) {
+			if err == io.EOF {
 				break
 			}
 			t.Errorf("Stream error: %v", err)
@@ -106,8 +106,7 @@ func TestAPIError(t *testing.T) {
 
 	var err error
 	c := NewClient(apiToken + "_invalid")
-	ctx := context.Background()
-	_, err = c.ListEngines(ctx)
+	_, err = c.ListEngines()
 	if err == nil {
 		t.Fatal("ListEngines did not fail")
 	}
@@ -131,13 +130,13 @@ func TestRequestError(t *testing.T) {
 	config := DefaultConfig("dummy")
 	config.BaseURL = "https://httpbin.org/status/418?"
 	c := NewClientWithConfig(config)
-	ctx := context.Background()
-	_, err = c.ListEngines(ctx)
+	_, err = c.ListEngines()
 	if err == nil {
 		t.Fatal("ListEngines request did not fail")
 	}
 
 	var reqErr *RequestError
+	err.Error()
 	if !errors.As(err, &reqErr) {
 		t.Fatalf("Error is not a RequestError: %+v", err)
 	}

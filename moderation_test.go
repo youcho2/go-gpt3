@@ -1,13 +1,13 @@
 package gogpt_test
 
 import (
-	. "github.com/sashabaranov/go-gpt3"
-	"github.com/sashabaranov/go-gpt3/internal/test"
+	. "github.com/youcho2/go-gpt3"
+	"github.com/youcho2/go-gpt3/internal/test"
+	"io/ioutil"
 
 	"context"
 	"encoding/json"
 	"fmt"
-	"io"
 	"net/http"
 	"strconv"
 	"strings"
@@ -90,7 +90,7 @@ func handleModerationEndpoint(w http.ResponseWriter, r *http.Request) {
 func getModerationBody(r *http.Request) (ModerationRequest, error) {
 	moderation := ModerationRequest{}
 	// read the request body
-	reqBody, err := io.ReadAll(r.Body)
+	reqBody, err := ioutil.ReadAll(r.Body)
 	if err != nil {
 		return ModerationRequest{}, err
 	}
